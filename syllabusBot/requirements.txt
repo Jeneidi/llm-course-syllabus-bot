@@ -1,5 +1,0 @@
-chromadb
-voyageai
-groq
-python-dotenv
-pypdf
