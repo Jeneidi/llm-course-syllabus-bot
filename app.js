@@ -53,7 +53,6 @@ function init() {
     el.toggleKey.setAttribute('aria-label', isHidden ? 'Hide key' : 'Show key');
   });
 
-  el.dropzone.addEventListener('click', () => el.fileInput.click());
   el.dropzone.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
