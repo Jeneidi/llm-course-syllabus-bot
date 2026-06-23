@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(204).end();
 
-  const path = Array.isArray(req.query.path) ? req.query.path.join('/') : '';
+  const path = Array.isArray(req.query.path) ? req.query.path.join('/') : req.query.path || '';
   const chunks = [];
   for await (const chunk of req) chunks.push(chunk);
 
