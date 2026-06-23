@@ -262,7 +262,23 @@ body {
 }
 .status-pill.is-idle { color: var(--text-dim); }
 .status-pill.is-ready { color: var(--accent); border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.08); }
-.status-pill.is-busy { color: #60a5fa; border-color: rgba(96, 165, 250, 0.3); background: rgba(96, 165, 250, 0.08); }
+.status-pill.is-busy { border-color: rgba(96, 165, 250, 0.3); background: rgba(96, 165, 250, 0.08); }
+
+.shimmer {
+  background-image: linear-gradient(90deg, var(--shimmer-base, var(--text-dim)) 0%, var(--shimmer-base, var(--text-dim)) 35%, #ffffff 50%, var(--shimmer-base, var(--text-dim)) 65%, var(--shimmer-base, var(--text-dim)) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-sweep 1.8s ease-in-out infinite;
+}
+@keyframes shimmer-sweep {
+  0% { background-position: 160% 0; }
+  100% { background-position: -60% 0; }
+}
+.file-status.is-uploading .shimmer { --shimmer-base: #fbbf24; }
+.file-status.is-indexing .shimmer { --shimmer-base: #60a5fa; }
+.status-pill.is-busy .shimmer { --shimmer-base: #60a5fa; }
 
 .chat-log {
   display: flex;
@@ -305,7 +321,15 @@ body {
   border: 1px solid rgba(248, 113, 113, 0.3);
   color: var(--danger);
 }
-.msg.pending { color: var(--text-dim); font-style: italic; }
+.msg.pending {
+  font-style: italic;
+  background-image: linear-gradient(90deg, var(--text-dim) 0%, var(--text-dim) 35%, #ffffff 50%, var(--text-dim) 65%, var(--text-dim) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-sweep 1.8s ease-in-out infinite;
+}
 
 .sources {
   margin-top: 10px;

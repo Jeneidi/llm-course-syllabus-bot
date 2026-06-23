@@ -82,7 +82,7 @@ function persistKey() {
 }
 
 function setStatusPill(text, mode) {
-  el.statusPill.textContent = text;
+  el.statusPill.innerHTML = mode === 'busy' ? `<span class="shimmer">${escapeHtml(text)}</span>` : escapeHtml(text);
   el.statusPill.className = 'status-pill ' + (mode ? `is-${mode}` : '');
 }
 
@@ -144,7 +144,7 @@ function addFileRow(name, status, label) {
   const li = document.createElement('li');
   li.className = 'file-item';
   li.dataset.name = name;
-  li.innerHTML = `<span class="file-name">${escapeHtml(name)}</span><span class="file-status is-${status}">${label}</span>`;
+  li.innerHTML = `<span class="file-name">${escapeHtml(name)}</span><span class="file-status is-${status}">${renderStatusLabel(status, label)}</span>`;
   el.fileList.appendChild(li);
   return li;
 }
@@ -152,7 +152,12 @@ function addFileRow(name, status, label) {
 function updateFileRow(row, status, label) {
   const badge = row.querySelector('.file-status');
   badge.className = `file-status is-${status}`;
-  badge.textContent = label;
+  badge.innerHTML = renderStatusLabel(status, label);
+}
+
+function renderStatusLabel(status, label) {
+  const isInProgress = status === 'uploading' || status === 'indexing';
+  return isInProgress ? `<span class="shimmer">${escapeHtml(label)}</span>` : escapeHtml(label);
 }
 
 async function ingestFile(file) {
