@@ -100,15 +100,18 @@ async function apiFetch(path, options = {}) {
       ...(options.headers || {}),
     },
   });
-  if (!res.ok) {
-    let detail = res.statusText;
-    try {
-      const body = await res.json();
-      detail = body.error?.message || detail;
-    } catch (_) {}
-    throw new Error(`${res.status}: ${detail}`);
-  }
+  if (!res.ok) throw new Error(await describeError(res));
   return res.json();
+}
+
+async function describeError(res) {
+  const raw = await res.text();
+  try {
+    const parsed = JSON.parse(raw);
+    return `${res.status}: ${parsed.error?.message || raw}`;
+  } catch (_) {
+    return `${res.status}: ${raw || res.statusText || 'request failed'}`;
+  }
 }
 
 async function ensureVectorStore() {
@@ -258,11 +261,7 @@ async function streamResponse(payload, onDelta) {
     },
     body: JSON.stringify({ ...payload, stream: true }),
   });
-  if (!res.ok) {
-    let detail = res.statusText;
-    try { detail = (await res.json()).error?.message || detail; } catch (_) {}
-    throw new Error(`${res.status}: ${detail}`);
-  }
+  if (!res.ok) throw new Error(await describeError(res));
 
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
