@@ -23,5 +23,8 @@ export default async function handler(req, res) {
 
   res.status(upstream.status);
   res.setHeader('Content-Type', upstream.headers.get('content-type') || 'application/json');
-  Readable.fromWeb(upstream.body).pipe(res);
+
+  await new Promise((resolve, reject) => {
+    Readable.fromWeb(upstream.body).pipe(res).on('finish', resolve).on('error', reject);
+  });
 }
