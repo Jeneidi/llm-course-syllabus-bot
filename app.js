@@ -1,4 +1,6 @@
 import { SYSTEM_INSTRUCTIONS } from './prompts.js';
+import { marked } from 'https://esm.sh/marked';
+import DOMPurify from 'https://esm.sh/dompurify';
 
 const API_BASE = '/api/openai';
 const CHAT_MODEL = 'gpt-4o-mini';
@@ -244,7 +246,8 @@ async function onSubmitMessage(e) {
     state.lastResponseId = finalResponse.id;
     const { text, sources } = extractAnswer(finalResponse);
     bubble.className = 'msg bot';
-    bubble.textContent = text || '(no answer returned)';
+    if (text) bubble.innerHTML = renderMarkdown(text);
+    else bubble.textContent = '(no answer returned)';
     appendSources(bubble, sources);
   } catch (err) {
     bubble.remove();
@@ -335,6 +338,10 @@ function appendSources(bubble, sources) {
     sourcesEl.appendChild(chip);
   }
   bubble.appendChild(sourcesEl);
+}
+
+function renderMarkdown(text) {
+  return DOMPurify.sanitize(marked.parse(text));
 }
 
 function escapeHtml(str) {

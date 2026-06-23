@@ -314,7 +314,28 @@ body {
   align-self: flex-start;
   background: var(--slate);
   border: 1px solid var(--panel-border);
+  white-space: normal;
 }
+.msg.bot :where(p, ul, ol) { margin: 0 0 8px; }
+.msg.bot :where(p, ul, ol):last-child { margin-bottom: 0; }
+.msg.bot ul, .msg.bot ol { padding-left: 20px; }
+.msg.bot li { margin: 2px 0; }
+.msg.bot strong { color: var(--text); font-weight: 600; }
+.msg.bot a { color: var(--accent); }
+.msg.bot code {
+  font-family: var(--mono);
+  background: var(--bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.msg.bot pre {
+  background: var(--bg);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.msg.bot pre code { background: none; padding: 0; }
 .msg.error {
   align-self: flex-start;
   background: rgba(248, 113, 113, 0.1);
