@@ -1,104 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Syllabus Bot — Chat with your course syllabus</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllabus Bot | Chat with your course syllabus</title>
+  <meta name="description" content="Upload a course syllabus and ask grounded questions with source citations.">
+  <meta name="theme-color" content="#f7f2e8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23f7f2e8'/%3E%3Cg fill='%231f3a68'%3E%3Crect x='4' y='9' width='2.4' height='6' rx='1.2'/%3E%3Crect x='8.2' y='6' width='2.4' height='12' rx='1.2'/%3E%3Crect x='12.4' y='4' width='2.4' height='16' rx='1.2'/%3E%3Crect x='16.6' y='7' width='2.4' height='10' rx='1.2'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="kit.css">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <div class="brand">
-      <svg class="brand-mark" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 4h11l5 5v11H4V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M15 4v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M8 12h8M8 15.5h8M8 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <span>syllabus<span class="accent">bot</span></span>
+    <div class="wrap header-row">
+      <a class="brand" href="#top" aria-label="Syllabus Bot home">
+        <svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="1.7" y="9" width="2.6" height="6" rx="1.3" fill="currentColor"/><rect x="6.2" y="5" width="2.6" height="14" rx="1.3" fill="currentColor"/><rect x="10.7" y="2" width="2.6" height="20" rx="1.3" fill="currentColor"/><rect x="15.2" y="6" width="2.6" height="12" rx="1.3" fill="currentColor"/><rect x="19.7" y="10" width="2.6" height="4" rx="1.3" fill="currentColor"/></svg>
+        <span>Syllabus Bot</span>
+      </a>
+
+      <nav class="desk-nav" aria-label="Sections">
+        <ul class="nav-links">
+          <li><a href="#key-panel">API key</a></li>
+          <li><a href="#upload-panel">Upload</a></li>
+          <li><a href="#chat-panel">Ask it</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="text-link" href="https://github.com/Jeneidi/llm-course-syllabus-bots" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a class="btn btn-primary header-cta" href="#upload-panel">Upload a syllabus</a>
+        <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
-    <a class="header-link" href="https://github.com/Jeneidi/llm-course-syllabus-bots" target="_blank" rel="noopener">
-      View source
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+
+    <div class="mobile-nav" id="mobile-menu">
+      <div class="mobile-nav-inner">
+        <ul class="mobile-nav-links">
+          <li><a href="#key-panel">API key</a></li>
+          <li><a href="#upload-panel">Upload</a></li>
+          <li><a href="#chat-panel">Ask it</a></li>
+          <li><a href="https://github.com/Jeneidi/llm-course-syllabus-bots" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+        <a class="btn btn-primary mobile-nav-cta" href="#upload-panel">Upload a syllabus</a>
+      </div>
+    </div>
   </header>
 
-  <main class="layout">
-    <section class="intro">
-      <h1>Drop in a syllabus. Ask it anything.</h1>
-      <p>Runs entirely client-side against the OpenAI API. Upload a PDF, paste your own API key, and ask questions — answers are grounded in the document with citations back to source.</p>
+  <main id="main" tabindex="-1">
+    <section class="hero wrap" id="top" aria-labelledby="title">
+      <p class="eyebrow">Grounded course companion</p>
+      <h1 id="title" class="display">
+        <span class="line"><span>Drop in a syllabus.</span></span>
+        <span class="line"><span>Ask it anything.</span></span>
+      </h1>
+      <p class="lead hero-sub">Upload a course syllabus, ask a question, and get an answer grounded in the document with citations back to the source.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#upload-panel">Upload a syllabus</a>
+        <a class="btn btn-ghost" href="#chat-panel">Ask a question</a>
+      </div>
+      <div class="stats hero-stats" aria-label="Syllabus Bot capabilities">
+        <div class="stat"><b>PDF</b><span>Document-first input</span></div>
+        <div class="stat"><b>25 MB</b><span>Maximum file size</span></div>
+        <div class="stat"><b>Sources</b><span>Citations in each answer</span></div>
+      </div>
     </section>
 
-    <section class="panel" id="key-panel">
-      <div class="panel-head">
-        <span class="step-index">01</span>
-        <h2>OpenAI API key</h2>
-      </div>
-      <div class="key-row">
-        <div class="key-input-wrap">
-          <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-..." aria-label="OpenAI API key">
-          <button id="toggle-key" type="button" class="icon-btn" aria-label="Show key">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/>
-              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
-            </svg>
-          </button>
+    <section class="section wrap" id="key-panel" aria-labelledby="key-title">
+      <div class="split">
+        <div>
+          <p class="eyebrow">01 / Bring your own key</p>
+          <h2 id="key-title" class="h2">Start with a private connection.</h2>
+          <p class="prose">Your key stays in this tab and is relayed through the project proxy to OpenAI. The proxy forwards requests without logging or storing them.</p>
         </div>
-        <label class="remember-row">
-          <input type="checkbox" id="remember-key">
-          <span>Remember for this tab</span>
-        </label>
+        <div class="card panel">
+          <div class="panel-head">
+            <span class="step-index">01</span>
+            <h3>OpenAI API key</h3>
+          </div>
+          <div class="key-row">
+            <div class="key-input-wrap">
+              <input class="control" id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-..." aria-label="OpenAI API key">
+              <button id="toggle-key" type="button" class="icon-btn" aria-label="Show key">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+              </button>
+            </div>
+            <label class="remember-row">
+              <input type="checkbox" id="remember-key">
+              <span>Remember for this tab</span>
+            </label>
+          </div>
+          <p class="hint">The optional remember setting writes only to <code>sessionStorage</code>, which clears when this tab closes.</p>
+        </div>
       </div>
-      <p class="hint">Relayed through a small proxy straight to <code>api.openai.com</code> (needed to get around browser CORS) — it forwards the request and never logs or stores the key. "Remember" only writes to <code>sessionStorage</code>, cleared when the tab closes.</p>
     </section>
 
-    <section class="panel" id="upload-panel">
-      <div class="panel-head">
-        <span class="step-index">02</span>
-        <h2>Upload syllabus</h2>
+    <section class="section band" id="upload-panel" aria-labelledby="upload-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">02 / Add the source</p>
+            <h2 id="upload-title" class="h2">Give the bot the document it should know.</h2>
+            <p class="prose">Upload one or more PDF syllabi. Each file is indexed in an OpenAI vector store so answers can point back to the right source.</p>
+          </div>
+          <div class="card panel">
+            <div class="panel-head">
+              <span class="step-index">02</span>
+              <h3>Upload syllabus</h3>
+            </div>
+            <label id="dropzone" for="file-input" class="dropzone" tabindex="0">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="dropzone-label">Drag a PDF here, or click to browse</span>
+              <span class="dropzone-sub">PDF only, up to 25MB per file</span>
+            </label>
+            <input id="file-input" type="file" accept="application/pdf" multiple hidden>
+            <ul id="file-list" class="file-list" aria-live="polite"></ul>
+          </div>
+        </div>
       </div>
-      <label id="dropzone" for="file-input" class="dropzone" tabindex="0">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 16V4m0 0 4 4m-4-4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="dropzone-label">Drag a PDF here, or click to browse</span>
-        <span class="dropzone-sub">PDF only, up to 25MB per file</span>
-      </label>
-      <input id="file-input" type="file" accept="application/pdf" multiple hidden>
-      <ul id="file-list" class="file-list" aria-live="polite"></ul>
     </section>
 
-    <section class="panel chat-panel" id="chat-panel">
-      <div class="panel-head">
-        <span class="step-index">03</span>
-        <h2>Ask about it</h2>
-        <span id="status-pill" class="status-pill is-idle">Waiting on a file</span>
-      </div>
+    <section class="section wrap" id="chat-panel" aria-labelledby="chat-title">
+      <div class="split">
+        <div>
+          <p class="eyebrow">03 / Ask the syllabus</p>
+          <h2 id="chat-title" class="h2">Turn the fine print into a clear answer.</h2>
+          <p class="prose">Questions stay scoped to the uploaded course material. Ask about dates, policies, grading, instructors, or anything else written in the syllabus.</p>
+          <ol class="steps" aria-label="How Syllabus Bot works">
+            <li><div><b>Retrieve the relevant passage</b><p>The file search tool finds the course details behind your question.</p></div></li>
+            <li><div><b>Answer from the source</b><p>The response stays grounded in the uploaded syllabus.</p></div></li>
+            <li><div><b>Show the citation</b><p>The answer keeps the source filename visible for a quick check.</p></div></li>
+          </ol>
+        </div>
 
-      <div id="chat-log" class="chat-log" aria-live="polite">
-        <div class="chat-empty">Upload a syllabus and ask your first question — try "When is the midterm?" or "What's the late policy?"</div>
-      </div>
+        <div class="card panel chat-card">
+          <div class="panel-head">
+            <span class="step-index">03</span>
+            <h3>Ask about it</h3>
+            <span id="status-pill" class="status-pill is-idle">Waiting on a file</span>
+          </div>
 
-      <form id="chat-form" class="chat-form">
-        <input id="chat-input" type="text" name="syllabus-question" placeholder="Ask a question about the syllabus..." autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" disabled>
-        <button id="send-btn" type="submit" class="primary-btn" disabled>
-          Send
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </form>
+          <div id="chat-log" class="chat-log" aria-live="polite">
+            <div class="chat-empty">Upload a syllabus and ask your first question. Try "When is the midterm?" or "What's the late policy?"</div>
+          </div>
+
+          <form id="chat-form" class="chat-form">
+            <input class="control" id="chat-input" type="text" name="syllabus-question" placeholder="Ask a question about the syllabus..." autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" disabled>
+            <button id="send-btn" type="submit" class="btn btn-primary primary-btn" disabled>
+              Send
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band center" aria-labelledby="cta-title">
+      <div class="wrap">
+        <h2 id="cta-title" class="h2">Read the code.</h2>
+        <p class="prose">See the proxy, prompt guardrail, file search flow, and the decisions behind the demo in the repository.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/Jeneidi/llm-course-syllabus-bots" target="_blank" rel="noopener">View on GitHub</a>
+          <a class="btn btn-ghost" href="https://mjeneidi.com" target="_blank" rel="noopener">More projects</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <span>Bring-your-own-key demo · OpenAI Responses API + file_search · no server, no logging</span>
+  <footer class="wrap site-footer">
+    <p class="footer-brand">
+      <svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="1.7" y="9" width="2.6" height="6" rx="1.3" fill="currentColor"/><rect x="6.2" y="5" width="2.6" height="14" rx="1.3" fill="currentColor"/><rect x="10.7" y="2" width="2.6" height="20" rx="1.3" fill="currentColor"/><rect x="15.2" y="6" width="2.6" height="12" rx="1.3" fill="currentColor"/><rect x="19.7" y="10" width="2.6" height="4" rx="1.3" fill="currentColor"/></svg>
+      Syllabus Bot
+    </p>
+    <ul>
+      <li><a href="https://github.com/Jeneidi/llm-course-syllabus-bots" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://mjeneidi.com" target="_blank" rel="noopener">mjeneidi.com</a></li>
+    </ul>
+    <p>© 2026 Mohammad Jeneidi</p>
   </footer>
 
+  <div class="toast-region" role="status" aria-live="polite"></div>
+  <script src="kit.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>
